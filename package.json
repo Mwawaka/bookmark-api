@@ -10,7 +10,7 @@
     "db:dev:remove": "sudo docker compose rm dev-db -s -f -v",
     "db:dev:restart": "yarn db:dev:remove && yarn db:dev:up && sleep 1 && yarn db:dev:migrate",
     "db:dev:migrate": " prisma migrate deploy ",
-    "db:test:power": "yarn db:test:restart && yarn test:e2e  ",
+    "db:test:powerup": "yarn db:test:restart && yarn test:e2e  ",
     "db:test:up": "sudo docker compose up test-db -d",
     "db:test:remove": "sudo docker compose rm test-db -s -f -v",
     "db:test:restart": "yarn db:test:remove && yarn db:test:up && sleep 1 && yarn db:test:migrate",
