@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  firstname String?
+  lastname String?
+  hash String
+  email String @unique
+
+  bookmarks Bookmark[]
+
+  @@map("users") //renaming the table to users 
+}
+
+model Bookmark{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  description String?
+  title String
+  link String
+
+  userId Int 
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  @@map("bookmarks")
+}
+
+// many to one relationship bookmarks-user
+// fields -indicates to prisma which fields are used for primary keys
+// references-indicates to prismato which field the primary key references
+
+// prisma migrate deploy -used to apply existing migrations to the database 
