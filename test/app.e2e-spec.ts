@@ -2,7 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AppModule } from '../src/app.module';
-import * as pactam from 'pactum';
+import * as pactum from 'pactum';
 import { AuthDto } from 'src/auth/dto';
 
 describe('App e2e', () => {
@@ -29,9 +29,11 @@ describe('App e2e', () => {
 
     await prisma.cleanDb();
   });
+
   afterAll(() => {
     app.close();
   });
+
   describe('Auth', () => {
     describe('Signup', () => {
       it('should Signup', () => {
@@ -39,24 +41,32 @@ describe('App e2e', () => {
           email: 'wakanda23@gmail.com',
           password: '12345',
         };
-        return pactam
+        return pactum
           .spec()
           .post('http://localhost:3333/auth/signUp')
           .withBody(dto)
           .expectStatus(201);
       });
     });
+
     describe('Signin', () => {});
   });
+
   describe('User', () => {
     describe('Get me', () => {});
+
     describe('Edit user', () => {});
   });
+
   describe('Bokmark', () => {
     describe('Create bookmark', () => {});
+
     describe('Get bookmarks', () => {});
+
     describe('Get bookmark by id ', () => {});
+
     describe('Edit bookmark', () => {});
+
     describe('Delete bookmark', () => {});
   });
 });
