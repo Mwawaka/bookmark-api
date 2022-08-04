@@ -15,6 +15,7 @@
     "db:test:remove": "sudo docker compose rm test-db -s -f -v",
     "db:test:restart": "yarn db:test:remove && yarn db:test:up && sleep 1 && yarn db:test:migrate",
     "db:test:migrate": "dotenv -e .env.test -- prisma migrate deploy ",
+    "test:start": "dotenv -e .env.test -- nest start --watch",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
