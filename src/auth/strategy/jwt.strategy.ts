@@ -1,4 +1,4 @@
-// validates access token
+// validates access token that will enable access to protected routes
 
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
