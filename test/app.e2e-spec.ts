@@ -28,6 +28,8 @@ describe('App e2e', () => {
     prisma = app.get(PrismaService);
 
     await prisma.cleanDb();
+
+    pactum.request.setBaseUrl('http://localhost:3333');
   });
 
   afterAll(() => {
@@ -43,21 +45,21 @@ describe('App e2e', () => {
       it('should throw email exception', () => {
         return pactum
           .spec()
-          .post('http://localhost:3333/auth/signUp')
+          .post('/auth/signUp')
           .withBody({ password: dto.password })
           .expectStatus(400);
       });
       it('should throw password exception', () => {
         return pactum
           .spec()
-          .post('http://localhost:3333/auth/signUp')
+          .post('/auth/signUp')
           .withBody({ email: dto.email })
           .expectStatus(400);
       });
       it('should Signup', () => {
         return pactum
           .spec()
-          .post('http://localhost:3333/auth/signUp')
+          .post('/auth/signUp')
           .withBody(dto)
           .expectStatus(201);
       });
@@ -67,23 +69,25 @@ describe('App e2e', () => {
       it('should throw email exception', () => {
         return pactum
           .spec()
-          .post('http://localhost:3333/auth/signIn')
+          .post('/auth/signIn')
           .withBody({ password: dto.password })
           .expectStatus(400);
       });
       it('should throw password exception', () => {
         return pactum
           .spec()
-          .post('http://localhost:3333/auth/signIn')
+          .post('/auth/signIn')
           .withBody({ email: dto.email })
           .expectStatus(400);
       });
       it('should signin', () => {
         return pactum
           .spec()
-          .post('http://localhost:3333/auth/signIn')
+          .post('/auth/signIn')
           .withBody(dto)
-          .expectStatus(200);
+          .expectStatus(200)
+          .stores('userAccessToken', 'access_token')
+          .inspect();
       });
     });
   });
