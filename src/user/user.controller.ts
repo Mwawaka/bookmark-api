@@ -9,10 +9,12 @@ import { GetUser } from '../auth/decorators';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get('test')
+  @Get('me')
   getMe(@GetUser() user: User) {
     return user;
   }
   @Patch()
-  editUser(){}
+  editUser() {
+
+  }
 }
