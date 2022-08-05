@@ -35,12 +35,26 @@ describe('App e2e', () => {
   });
 
   describe('Auth', () => {
+    const dto: AuthDto = {
+      email: 'wakanda23@gmail.com',
+      password: '12345',
+    };
     describe('Signup', () => {
+      it('should throw email exception', () => {
+        return pactum
+          .spec()
+          .post('http://localhost:3333/auth/signUp')
+          .withBody({ password: dto.password })
+          .expectStatus(400);
+      });
+      it('should throw password exception', () => {
+        return pactum
+          .spec()
+          .post('http://localhost:3333/auth/signUp')
+          .withBody({ email: dto.email })
+          .expectStatus(400);
+      });
       it('should Signup', () => {
-        const dto: AuthDto = {
-          email: 'wakanda23@gmail.com',
-          password: '12345',
-        };
         return pactum
           .spec()
           .post('http://localhost:3333/auth/signUp')
@@ -49,7 +63,29 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Signin', () => {});
+    describe('Signin', () => {
+      it('should throw email exception', () => {
+        return pactum
+          .spec()
+          .post('http://localhost:3333/auth/signIn')
+          .withBody({ password: dto.password })
+          .expectStatus(400);
+      });
+      it('should throw password exception', () => {
+        return pactum
+          .spec()
+          .post('http://localhost:3333/auth/signIn')
+          .withBody({ email: dto.email })
+          .expectStatus(400);
+      });
+      it('should signin', () => {
+        return pactum
+          .spec()
+          .post('http://localhost:3333/auth/signIn')
+          .withBody(dto)
+          .expectStatus(200);
+      });
+    });
   });
 
   describe('User', () => {

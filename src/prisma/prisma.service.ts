@@ -14,7 +14,7 @@ export class PrismaService extends PrismaClient {
     });
   }
   cleanDb() {
-    // transaction ensures that prisma carries out its function in a specified order
+    // transaction ensures that prisma carries out this function in a specified order
     return this.$transaction([
       this.user.deleteMany(),
       this.bookmark.deleteMany(),
